@@ -5,7 +5,7 @@ module M3u8
   class SegmentItem
     include M3u8
     attr_accessor :duration, :segment, :comment, :program_date_time,
-                  :byterange, :tvg_id, :tvg_name, :tvg_logo, :group_title
+                  :byterange, :tvg_id, :tvg_name, :tvg_logo, :group_title, :event
 
     def initialize(params = {})
       intialize_with_byterange(params)
