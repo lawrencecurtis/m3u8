@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module M3u8
   # SegmentItem represents EXTINF attributes with the URI that follows,
   # optionally allowing an EXT-X-BYTERANGE tag to be set.
   class SegmentItem
     include M3u8
     attr_accessor :duration, :segment, :comment, :program_date_time,
-                  :byterange, :tvg_id, :tvg_name, :tvg_logo, :group_title, :event, :required
+                  :byterange, :tvg_id, :tvg_name, :tvg_logo, :tvg_chno, :group_title, :event, :required
 
     def initialize(params = {})
       intialize_with_byterange(params)
@@ -21,6 +22,7 @@ module M3u8
 
     def byterange_format
       return if byterange.nil?
+
       "\n#EXT-X-BYTERANGE:#{byterange}"
     end
 
@@ -28,26 +30,37 @@ module M3u8
       [tvg_id_format,
        tvg_logo_format,
        tvg_name_format,
+       tvg_chno_format,
        group_title_format].compact.join(' ')
     end
 
     def tvg_id_format
       return if tvg_id.nil?
+
       "tvg-id=\"#{tvg_id}\""
     end
 
     def tvg_logo_format
       return if tvg_logo.nil?
+
       "tvg-logo=\"#{tvg_logo}\""
     end
 
     def tvg_name_format
       return if tvg_name.nil?
+
       "tvg-name=\"#{tvg_name}\""
+    end
+
+    def tvg_chno_format
+      return if tvg_chno.nil?
+
+      "tvg-chno=\"#{tvg_chno}\""
     end
 
     def group_title_format
       return if group_title.nil?
+
       "group-title=\"#{group_title}\""
     end
   end
